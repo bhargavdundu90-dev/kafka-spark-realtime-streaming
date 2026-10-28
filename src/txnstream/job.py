@@ -32,14 +32,27 @@ def build_session(app_name: str = "txnstream") -> SparkSession:
 
 
 def read_kafka(spark: SparkSession, s: JobSettings) -> DataFrame:
-    return (
+    reader = (
         spark.readStream.format("kafka")
         .option("kafka.bootstrap.servers", s.kafka_bootstrap)
         .option("subscribe", s.topic)
         .option("startingOffsets", s.starting_offsets)
         .option("failOnDataLoss", "false")
         .option("maxOffsetsPerTrigger", 50_000)
-        .load()
+    )
+    if s.msk_iam:
+        # Amazon MSK Serverless only accepts IAM auth (needs aws-msk-iam-auth on the classpath)
+        reader = (
+            reader.option("kafka.security.protocol", "SASL_SSL")
+            .option("kafka.sasl.mechanism", "AWS_MSK_IAM")
+            .option("kafka.sasl.jaas.config", "software.amazon.msk.auth.iam.IAMLoginModule required;")
+            .option(
+                "kafka.sasl.client.callback.handler.class",
+                "software.amazon.msk.auth.iam.IAMClientCallbackHandler",
+            )
+        )
+    return (
+        reader.load()
         .select(F.col("value").cast("string").alias("value"))
     )
 

@@ -50,6 +50,7 @@ class JobSettings:
     trigger_seconds: int
     watermark: str
     starting_offsets: str
+    msk_iam: bool = False
 
     @classmethod
     def from_env(cls) -> "JobSettings":
@@ -61,4 +62,5 @@ class JobSettings:
             trigger_seconds=int(os.getenv("TRIGGER_SECONDS", "30")),
             watermark=os.getenv("WATERMARK", "15 minutes"),
             starting_offsets=os.getenv("STARTING_OFFSETS", "latest"),
+            msk_iam=os.getenv("MSK_IAM", "false").lower() == "true",
         )
