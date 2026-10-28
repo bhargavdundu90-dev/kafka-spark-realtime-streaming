@@ -1,0 +1,10 @@
+[project]
+name = "txnstream"
+version = "0.1.0"
+description = "Real-time transaction streaming with Kafka and Spark Structured Streaming, landing to S3/Parquet with fraud-signal aggregation"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+markers = ["spark: needs pyspark and a local JVM"]
