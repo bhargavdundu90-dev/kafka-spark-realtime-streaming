@@ -119,7 +119,7 @@ docker compose logs -f spark          # micro-batches every 30 s
 - A 30-second trigger creates many small Parquet files. Run daily compaction or move the sinks to Apache Iceberg.
 - Signals land in S3 only. For real-time alerting, also write flagged windows to a Kafka/SNS topic via `foreachBatch`.
 
-## Interview Q&A
+## Common questions
 
 **1. Why do you need a watermark, and how did you pick 15 minutes?**
 Without a watermark, Spark has to keep every window's state forever because a late event could still arrive.

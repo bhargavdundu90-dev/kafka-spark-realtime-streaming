@@ -7,7 +7,7 @@ The local stack maps one-to-one onto managed AWS services:
 | Kafka (KRaft)          | **Amazon MSK Serverless**, IAM auth | Same Kafka API, no broker sizing; Kinesis Data Streams is the alternative if the producers are already AWS-native |
 | Spark container        | **EMR Serverless** (Spark 3.5, emr-7.x) | Long-running streaming job without managing a cluster. Glue Streaming works too but gives less control over Spark/Kafka versions |
 | MinIO bucket `lake`    | **S3** (SSE-KMS, public access blocked) | Parquet, partitioned by date |
-| —                      | **Glue Data Catalog + Athena** | `fraud_signals` table uses partition projection, so no crawler or `MSCK REPAIR` is needed |
+| (new)                  | **Glue Data Catalog + Athena** | `fraud_signals` table uses partition projection, so no crawler or `MSCK REPAIR` is needed |
 
 Region defaults to `ap-south-1` (Mumbai) since card data for Indian issuers is expected to stay in India.
 
