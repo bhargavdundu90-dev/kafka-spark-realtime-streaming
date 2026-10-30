@@ -4,8 +4,6 @@ Real-time transaction streaming with Kafka and Spark Structured Streaming, landi
 
 ![ci](https://github.com/bhargavdundu90-dev/kafka-spark-realtime-streaming/actions/workflows/ci.yml/badge.svg)
 
-> Portfolio project. All data is synthetic, produced by the bundled generator.
-
 ## Business scenario
 
 A retail bank in India processes card and UPI payments around the clock. The fraud-operations
